@@ -5,10 +5,11 @@ import pycountry
 from pathlib import Path
 from pyproj import CRS
 from shapely import Geometry, Polygon
+from sklearn.cluster import KMeans
+from typing import Any
 
 from deepfacility.utils import util
-from typing import Any
-from sklearn.cluster import KMeans
+
 
 # Frequently used spatial global variables
 geom_col = 'geometry'

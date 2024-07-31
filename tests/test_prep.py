@@ -3,6 +3,7 @@ import geopandas as gpd
 import pandas as pd
 
 from pathlib import Path
+from tempfile import mkdtemp
 from unittest.mock import MagicMock, patch
 
 from deepfacility.data.inputs import DataInputs
@@ -21,6 +22,7 @@ def mock_data_inputs(mock_config):
 
 # prepare_country_shapes tests
 
+@pytest.mark.unit
 def test_prepare_country_shapes_when_shape_files_exist(mock_data_inputs):
     mock_data_inputs.cfg.inputs.shape_files = [Path('shape1.shp'), Path('shape2.shp')]
     with patch('pathlib.Path.is_file', return_value=True):
@@ -28,8 +30,9 @@ def test_prepare_country_shapes_when_shape_files_exist(mock_data_inputs):
     assert result == mock_data_inputs.cfg.inputs.shape_files
 
 
+@pytest.mark.unit
 def test_prepare_country_shapes_when_shape_files_do_not_exist(mock_data_inputs):
-    mock_data_inputs.cfg.inputs.shape_files = [Path('shape1.shp'), Path('shape2.shp')]    
+    mock_data_inputs.cfg.inputs.shape_files = [Path('shape1.shp'), Path('shape2.shp')]
     with patch.object(Path, 'is_file') as mock_is_file:
         mock_is_file.return_value = True
     
@@ -43,6 +46,7 @@ def test_prepare_country_shapes_when_shape_files_do_not_exist(mock_data_inputs):
             assert result == mock_data_inputs.cfg.inputs.shape_files
 
 
+@pytest.mark.unit
 def test_prepare_country_shapes_when_zip_file_does_not_exist(mock_data_inputs):
     with pytest.raises(AssertionError, match="Raw shape file not found."):
         mock_data_inputs.prepare_country_shapes(Path('nonexistent.zip'))
@@ -51,6 +55,7 @@ def test_prepare_country_shapes_when_zip_file_does_not_exist(mock_data_inputs):
 # prepare_households tests
 
 
+@pytest.mark.unit
 def test_households_preparation_when_file_exists(mock_data_inputs):
     mock_data_inputs.cfg.inputs.households.file = Path('existing_file.csv')
     with patch.object(Path, 'is_file', return_value=True):
@@ -58,8 +63,9 @@ def test_households_preparation_when_file_exists(mock_data_inputs):
     assert result == mock_data_inputs.cfg.inputs.households.file
 
 
+@pytest.mark.unit
 def test_households_preparation_when_file_does_not_exist(mock_data_inputs):
-    mock_data_inputs.cfg.inputs.households.file = Path('nonexistent_file.csv')
+    mock_data_inputs.cfg.inputs.households.file = Path(mkdtemp()) / Path('nonexistent_file.csv')
     with patch.object(Path, 'is_file', return_value=False), \
          patch('geopandas.read_file', return_value=MagicMock()), \
          patch('pandas.read_feather', return_value=MagicMock()), \
@@ -88,12 +94,14 @@ def mock_df_xy():
     })
 
 
+@pytest.mark.unit
 def test_buildings_processing_happy_path(mock_data_inputs, mock_gdf_shapes, mock_df_xy):
     with patch('deepfacility.data.inputs.process_google_buildings', return_value=mock_df_xy):
         result = mock_data_inputs.process_buildings(mock_gdf_shapes, ['x', 'y'], mock_df_xy, ['x', 'y'])
     assert result.equals(mock_df_xy)
 
 
+@pytest.mark.unit
 def test_buildings_processing_with_empty_dataframe(mock_data_inputs, mock_gdf_shapes):
     with patch('deepfacility.data.inputs.process_google_buildings', return_value=pd.DataFrame()):
         result = mock_data_inputs.process_buildings(mock_gdf_shapes, ['x', 'y'], pd.DataFrame(), ['x', 'y'])
@@ -113,8 +121,9 @@ def mock_shape_files():
     return [Path('shape1.shp'), Path('shape2.shp')]
 
 
+@pytest.mark.unit
 def test_village_locality_preparation(mock_data_inputs, mock_village_locality, mock_shape_files):
-    mock_data_inputs.cfg.inputs.village_centers.file = Path('nonexistent_file.csv')
+    mock_data_inputs.cfg.inputs.village_centers.file = Path(mkdtemp()) / Path('nonexistent_file.csv')
     with patch('pandas.read_csv', return_value=MagicMock()), \
          patch('geopandas.read_file', return_value=MagicMock()), \
          patch('deepfacility.data.inputs.DataInputs.prepare_village_centers', return_value=MagicMock()), \
@@ -153,6 +162,7 @@ def mock_baseline_file():
     return Path('baseline.csv')
 
 
+@pytest.mark.unit
 def test_village_centers_preparation_happy_path(
         mock_data_inputs,
         mock_village_locality,
@@ -191,6 +201,7 @@ def test_village_centers_preparation_happy_path(
 # prepare_baseline_facilities tests
 
 
+@pytest.mark.unit
 def test_baseline_facilities_preparation(
         mock_data_inputs,
         mock_baseline_file,

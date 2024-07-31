@@ -1,4 +1,5 @@
 import geopandas as gpd
+import requests
 import shutil
 import tempfile
 
@@ -53,9 +54,15 @@ def tmp_dir() -> Path:
     
 
 # download_url tests
+def has_internet():
+    try:
+        requests.get("https://gadm.org/", timeout=5)
+        return True
+    except requests.exceptions.RequestException:
+        return False
 
 
-@pytest.mark.network_dependent
+@pytest.mark.skipif(not has_internet(), reason="No internet connection")
 def test_download_url_ok(tmp_dir, url_pattern):
     expected, actual = download_url_test(tmp_dir, url_pattern, 0)
     assert expected == actual, "File name is not expected."
@@ -66,7 +73,7 @@ def test_download_url_ok(tmp_dir, url_pattern):
         return False
 
 
-@pytest.mark.network_dependent
+@pytest.mark.skipif(not has_internet(), reason="No internet connection")
 def test_download_url_404(tmp_dir, url_pattern):
     expected, actual = download_url_test(tmp_dir, url_pattern, level=4)
     assert actual is None, "404 didn't return None."

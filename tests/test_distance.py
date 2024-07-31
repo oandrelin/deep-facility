@@ -16,7 +16,8 @@ def mock_config():
 
 rel = 1e-9
     
-    
+
+@pytest.mark.unit
 def test_convert_to_cartesian():
     # Test case 1: lon = 0, lat = 0, elevation = 0
     # This is the prime meridian, equator, and sea level
@@ -47,6 +48,7 @@ def test_convert_to_cartesian():
     assert round(z1) == 1366661
     
 
+@pytest.mark.unit
 def test_calculate_minkowski_from_cartesian():
     # Test with sample data
     df_loc = pd.DataFrame(
@@ -63,6 +65,7 @@ def test_calculate_minkowski_from_cartesian():
     assert result['minkowski'][2] == pytest.approx(2.0408871750129656, rel=rel)
 
 
+@pytest.mark.unit
 def test_find_nearest_facility():
     # generate two data frame with id and x, y columns
     df_loc = pd.DataFrame({'id': ['a', 'b', 'c'], 'x': [0, 1, 2], 'y': [0, 1, 2]})
@@ -83,6 +86,7 @@ def test_find_nearest_facility():
     assert df_loc['distance'].tolist() == pytest.approx(expected_distances, rel=4)
 
 
+@pytest.mark.unit
 def test_calculate_distance_df():
     # Create sample data
     df = pd.DataFrame({'id': ['a', 'b', 'c'], 'lon': [0, 1, 2], 'lat': [0, 1, 2]})
@@ -110,6 +114,7 @@ def test_calculate_distance_df():
     assert all(abs(result['distance_minkowski'].values - expected_distances_minkowski) == 0), msg
                     
 
+@pytest.mark.unit
 def test_plot_ecdf_distance(mock_config):
     # Create sample data
     df = pd.DataFrame({'minkowski': [1.5, 2.0, 1.8, 1.2, 1.6]})
