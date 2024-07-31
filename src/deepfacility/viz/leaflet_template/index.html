@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css" />
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+        <link rel="stylesheet" href="css/Control.Loading.css" />
+        <link rel="stylesheet" href="css/custom_theme.css" />
+        <style>
+        #map {
+            width: 2065px;
+            height: 1089px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div>
+        <!--h1>Deep Facility Results</h1-->
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <select id="adm2Select" disabled onclick="document.getElementById('filter_loc').onclick()">
+                            <option value="">{{ _("Select") }} ADM2</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="adm3Select" disabled onclick="document.getElementById('filter_loc').onclick()">
+                            <option value="">{{ _("Select") }} ADM3</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button id = "filter_loc" type="submit" style="visibility: hidden" value="Update" class="button is-link is- outlined is-light is-small is-rounded">{{ _("Update") }}</button>
+                    </td>
+                    <td>
+                         <button id="toggleLayerBtn" style="display: none;">{{ _("Remove User Layer") }}</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="map" 
+             style="position: relative; height: 90%; min-height: 35vh; width: 98%; outline: none;"
+             ondrop="dropHandler(event);"
+             ondragover="dragOverHandler(event);">
+        <br>
+        <script src="js/jquery-3.7.1.min.js"></script>
+        <script src="js/papaparse.js"></script>
+        <script src="js/papaparse.min.js"></script>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="js/leaflet.geocsv.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/Control.Loading.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/village_shapes.js"></script>
+        <script src="data/optimal_facilities.js"></script>
+        <script src="data/village_centers.js"></script>
+        <script src="data/gadm.js"></script>
+        <script src="data/baseline_facilities.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,8 @@
+<label>{{ _("Locations") }}:<br>
+    <select name="locs" multiple size=7>
+        <option value="all" selected>All</option>
+        {% for loc in locations %}
+        <option value="{{ loc }}">{{ loc }}</option>
+        {% endfor %}
+    </select><br>
+</label>

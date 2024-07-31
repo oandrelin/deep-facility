@@ -1,0 +1,102 @@
+<hr>
+    <form name='cfg_form'  
+          hx-encoding='multipart/form-data' 
+          hx-post='/config' 
+          hx-target="this"
+          hx-swap="innerHTML">
+        <label class="instruction">{{ _("Choose column names and parameters.") }}</label>
+        <table class="status" style="width: auto">
+        <tr>
+            <td colspan="2">
+                <label>{{ _("Village Centers File") }}:</label><label class="field">{{ village_file }}</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="village_name_col">{{ _("Village Name Column") }}</label>
+            </td>
+            <td>
+                <select name="village_name_col" id="village_name_col">
+                    {% for c in village_cols %}
+                    <option value="{{ c }}" {% if c.lower() in ['name', 'nom'] %}selected{% endif %} >{{ c }}</option>>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="village_lon_col">{{ _("Village Longitude Column") }}</label>
+            </td>
+            <td>
+                <select name="village_lon_col" id="village_lon_col">
+                    {% for c in village_cols %}
+                    <option value="{{ c }}" {% if c.lower() in ['lon', 'longitude'] %}selected{% endif %}>{{ c }}</option>>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="village_lat_col">{{ _("Village Latitude Column") }}</label>
+            </td>
+            <td>
+                <select name="village_lat_col" id="village_lat_col">
+                    {% for c in village_cols %}
+                    <option value="{{ c }}" {% if c.lower() in ['lat', 'latitude'] %}selected{% endif %}>{{ c }}</option>>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+{% if baseline_cols  %}
+        <tr>
+            <td colspan="2">
+                <label>{{ _("Facilities Baseline File") }}:</label><label class="field">{{ baseline_file }}</label>
+            </td>
+        </tr>
+            <tr><td colspan="2"><hr></tr>
+        <tr>
+            <td>
+                <label for="baseline_lon_col">{{ _("Baseline Longitude Column") }}</label>
+            </td>
+            <td>
+                <select name="baseline_lon_col" id="baseline_lon_col">
+                    {% for c in baseline_cols %}
+                    <option value="{{ c }}" {% if c.lower() in ['lon', 'longitude'] %}selected{% endif %}>{{ c }}</option>>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="baseline_lat_col">{{ _("Baseline Latitude Column") }}</label>
+            </td>
+            <td>
+                <select name="baseline_lat_col" id="baseline_lat_col">
+                    {% for c in baseline_cols %}
+                    <option value="{{ c }}" {% if c.lower() in ['lat', 'latitude'] %}selected{% endif %}>{{ c }}</option>>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="baseline_info_cols">{{ _("Baseline Info Columns") }}</label>
+            </td>
+            <td>
+                <select name="baseline_info_cols" id="baseline_info_cols" multiple size="10">
+                    {% for c in baseline_cols %}
+                    <option value="{{ c }}" {% if c.lower() in ['year', 'statut', 'district'] %}selected{% endif %}>{{ c }}</option>>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+    
+{% endif %}        
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+                <button type="submit">{{ _("Configure") }}</button>
+            </td>
+        </tr>
+        </table>  
+    </form>

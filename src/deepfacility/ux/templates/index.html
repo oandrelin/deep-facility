@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>DEEP Facility</title>
+        <script src="https://unpkg.com/htmx.org@1.9.9" integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX" crossorigin="anonymous"></script>
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        
+    </head>
+    <body>
+        <header>
+            <table style="width: 100%">
+                <tr style="horiz-align: left; vertical-align: top">
+                    <td >
+                        <h1>{{ _("Digitally Enabled Equitably Placed (DEEP) Facility") }}</h1>
+                    </td>
+                    <td style="horiz-align: right">
+                        <div class="tooltip">
+                            <label>{{ _("Language") }}:
+                                <form name="lang_form" action="/lang" method="post">
+                                    <select id="language" name="language" onchange="this.form.submit();">
+                                        {% for code, name in all_languages %}
+                                        <option value="{{ code }}" {% if code == language %}selected{% endif %} >{{ name }}</option>>
+                                        {% endfor %}
+                                    </select>
+                                </form>
+                            </label>
+                            <span class="tooltiptext" id="tooltip-text">{{ _("Warning: Changing the language will not update the map created previously.") }}</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div id="info" 
+                 hx-get="/info"
+                 hx-trigger="load"
+                 hx-select-oob="#driver,#downloads,#view"
+                 hx-target="this"
+                 hx-swap="innerHTML">
+            </div>
+        </header>
+        <nav id="nav">
+            <div id="driver" 
+                 hx-get="/driver"
+                 hx-trigger="load"
+                 hx-select-oob="#downloads"
+                 hx-target="this"
+                 hx-swap="innerHTML">
+            </div>
+            <div id='downloads'></div>
+        </nav>
+        <main id="main">
+            <div id="view" 
+                 class="map"
+                 hx-get="/clear_view"
+                 hx-trigger="load"
+                 hx-target="this"
+                 hx-swap="innerHTML"
+            ></div>
+        </main>
+        <div class="footer">
+            <label class="field">{{ _("Session") }}: {{ session_id }}</label>|
+            <label class="field">{{ _("Version") }}: {{ version }}</label><br>
+        </div>
+    </body>
+</html>

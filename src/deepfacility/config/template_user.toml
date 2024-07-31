@@ -1,0 +1,15 @@
+[args]  # User provided files and parameters.
+country = "Burkina Faso"     # run `deepfacility countries` to see supported countries.
+data_dir = "app-data/data"            # root data dir.
+threshold_households = 30    # Min number of households per village.
+threshold_village_perc = 10  # Max percent of invalid villages.
+
+    [args.village_centers]                        # Optional if GADM shapes contain admin 4 
+    file = "{data_dir}/{country_code}/args/village_centers.csv"  # file containing village centers  
+    adm_cols = ["adm4"]                           # village column name
+    xy_cols = ["lon", "lat"]                      # longitude and latitude column names
+
+    [args.baseline_facilities]                    # Optional for baseline analysis
+    file = "{data_dir}/{country_code}/args/baseline_facilities.csv"  # file containing existing baseline facilities
+    xy_cols = ["lon", "lat"]                      # longitude and latitude column names
+    info_cols = []                                # columns to include in the output

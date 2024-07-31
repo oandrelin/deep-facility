@@ -1,0 +1,6 @@
+{{ _("Locations") }}:<br>
+    <select name="result_dir" multiple size=5>     
+        {% for res in results %}
+        <option value="{{ res }}">{{ res }}</option>
+        {% endfor %}
+    </select><br>

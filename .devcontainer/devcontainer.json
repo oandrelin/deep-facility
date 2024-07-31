@@ -1,0 +1,10 @@
+{
+    "name": "Python 3.12 Development Container For DEEP",
+    "image": "python:3.12",
+    "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance"
+    ],
+    "postCreateCommand": "pip install -e . && deepfacility ux",
+    "forwardPorts": [8000]
+}

@@ -1,0 +1,42 @@
+<label class="instruction">{{ _("Review below information, then click") }} '{{ _("Prepare Input Data") }}' ({{ _("takes a few minutes to complete") }}).</label>
+
+<table class="header">
+    <tr>
+        <td>
+            <label>{{ _("Country") }}: </label><label class="field">{{ country }}</label>
+            <label>&nbsp;&nbsp;|&nbsp;&nbsp;{{ _("Code") }}: </label><label class="field">{{ country_code }}</label><br>
+            <label>{{ _("Villages") }}: </label><label class="field">{{ village_file }}</label>
+            {% if baseline_file %}
+            <label>&nbsp;&nbsp;|&nbsp;&nbsp;{{ _("Baseline") }}: </label><label class="field">{{ baseline_file }}</label>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td id="village_preview" style="horiz-align: left">
+            <label>{{ _("Preview Village Centers (first 5 rows)") }}:</label><br>
+            {{ village_preview|safe }}
+        </td>
+    </tr>
+    {% if baseline_preview %}
+    <tr>
+        <td id="baseline_preview" style="horiz-align: left">
+            <label>{{ _("Preview Baseline Facilities (first 5 rows)") }}:</label><br>
+            {{ baseline_preview|safe }}
+        </td>
+    </tr>
+    {% endif %}     
+</table>
+
+<br>
+<button hx-get='/oknew' 
+        hx-target='#info' 
+        hx-swap='innerHTML' 
+        title='{{ _("Goes back to the upload page.") }}'>{{ _("Cancel") }}</button>
+
+<button hx-get='/prep' 
+        hx-target='#view' 
+        hx-swap='innerHTML' 
+        title='{{ _("Prepares input data like households. WARNING! This action will remove all previous results.") }}'>{{ _("Prepare Input Data") }}</button>
+<br>
+<label class="instruction">{{ _("Hover over buttons for more information.") }}</label>
+

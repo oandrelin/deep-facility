@@ -1,0 +1,20 @@
+<iframe src="{{ result_url }}" ></iframe><br>
+<div id='downloads' > 
+    <form name="remove" action="/remove" method="post">
+        <input name="result_name" type="hidden" value="{{ result_name }}">
+        <button type="submit" onclick='return confirm("{{ _("Are you sure?") }}")'>{{ _("Remove") }}</button>
+    </form>
+    <h3>{{ _("Downloads") }}</h3>
+    <hr>
+    <form name="download" action="/download" method="post">
+        <input name="result_name" type="hidden" value="{{ result_name }}">
+        {{ _("Result Files") }} ({{ result_name }}):<br>
+        <ul>
+            {% for f in result_files %}
+                <li>{{ f }}</li>
+            {% endfor %}     
+        </ul>
+        <button type="submit">{{ _("Download") }}</button>
+    </form>
+    <label class="instruction">{{ _("Browser may ask for confirmation.") }}</label>
+</div>

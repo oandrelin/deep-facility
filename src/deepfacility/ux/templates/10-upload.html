@@ -1,0 +1,33 @@
+{#<h3>Configuration</h3>#}
+<hr>
+<form id='centers-upload-form' 
+      hx-post='/upload'
+      hx-encoding='multipart/form-data' 
+      hx-target="#info"
+      hx-swap="innerHTML">     
+    
+<table  class="status" style="width: auto">
+    <tr>
+        <td style="background: lightgray; width: 1px">&nbsp;</td>
+        <td>
+            <label class="instruction">{{ _("Upload village centers file (.csv).") }}</label>
+            <input type="file" name="village_file" id="village_file" accept="text/csv" required>
+        </td>
+        <td>&nbsp;</td>
+        <td>
+            <button type="submit">{{ _("Upload") }}</button>
+        </td>
+    </tr>
+    <tr><td colspan="4"><hr></td></tr>
+    <tr>
+        <td style="background: lightgray; width: 1px">&nbsp;</td>
+        <td colspan="3">
+            <label class="instruction">{{ _("Upload (optional) facilities baseline file (.csv).") }}</label>
+            <input type="file" name="baseline_file" id="baseline_file" accept="text/csv">
+        </td>
+</table>
+    
+</form>
+<div id="driver"></div>
+<div id="downloads"></div>
+<div id="view"></div>

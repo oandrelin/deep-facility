@@ -1,0 +1,9 @@
+<div id='container' 
+     hx-get='/prep/status' 
+     hx-target='#status' 
+     hx-swap='innerHTML'
+     hx-trigger="load, every 5s">
+</div>
+<div id='status' style="overflow-y: auto">
+    <p>{{ _("Waiting for status...") }}</p>    
+</div>

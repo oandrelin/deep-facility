@@ -1,0 +1,19 @@
+<table>
+    <tr>
+        <td style="vertical-align: top; width:1%">
+            <table class="status">
+                <tr><td>{{ _("Shapes") }}:</td><td>[{{ _(shp) }}]</td></tr>
+                <tr><td>{{ _("Buildings") }}:</td><td>[{{ _(bld) }}]</td></tr>
+                <tr><td>{{ _("Households") }}:</td><td>[{{ _(hhs) }}]</td></tr>
+                <tr><td>{{ _("Villages") }}:</td><td>[{{ _(vil) }}]</td></tr>
+                <tr><td>{{ _("Time:") }}</td><td>[{{ elapsed }}]</td></tr>
+            </table>
+        </td>
+        <td style="background-color: #dddddd; width: 1px"></td>
+        <td  style="vertical-align: top;">
+            {% for line in logs %}
+            {{ _(line) }}<br>
+            {% endfor %}                     
+        </td>
+    </tr>
+</table>

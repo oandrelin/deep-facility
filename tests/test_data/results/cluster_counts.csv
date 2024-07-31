@@ -1,0 +1,4 @@
+adm2,adm3,adm4,cluster,counts,small
+Test,Province1,CommunA,0,565,False
+Test,Province1,CommunB,1,1054,False
+Test,Province1,CommunC,2,501,False

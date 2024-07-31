@@ -1,0 +1,4 @@
+geopandas
+pandas
+pycountry
+s2geometry

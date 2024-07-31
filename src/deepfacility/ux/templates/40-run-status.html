@@ -1,0 +1,21 @@
+<table> 
+    <tr>
+        <td style="width: 1%; vertical-align: top">
+            <table class="status">
+                {% for name, ok in files %}
+                <tr>
+                    <td >{{ name }}</td>
+                    <td >[{{ _("Done") if ok else _("In Progress") }}]</td>
+                </tr>
+                {% endfor %}
+                <tr><td>{{ _("Time:") }}</td><td>[{{ elapsed }}]</td></tr>
+            </table>
+        </td>    
+        <td style="background-color: #dddddd; width: 1px"></td>
+        <td style="vertical-align: top;">  
+            {% for line in res_logs %}
+            {{ _(line) }}<br>
+            {% endfor %}
+        </td>
+    </tr>
+</table>

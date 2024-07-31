@@ -1,0 +1,74 @@
+<h3>{{ _("Locations") }}</h3>
+<hr>
+<form name="run_form"
+      hx-post='/run'
+      hx-encoding='multipart/form-data'
+      hx-target='#view'
+      hx-swap="innerHTML">
+    <div id="locs-filter">
+            <script lang="JavaScript">
+                function filter_locs_list(value){
+                    var locs = document.getElementsByName("locs")[0];
+                    for (var i = 0; i < locs.options.length; i++) {
+                        if (locs.options[i].value.toLowerCase().includes(value.toLowerCase())) {
+                            locs.options[i].style.display = "block";
+                        } else {
+                            locs.options[i].style.display = "none";
+                        }
+                    }
+                }
+            </script>
+        <div>
+            <input type="text" id="locs-search" value="" style="width: 88%" onkeyup="javascript: filter_locs_list(this.value);"><br>
+            <select name="locs" multiple size=7 style="width: 90%">             
+                {% for loc in locations %}
+                <option value="{{ loc }}">{{ loc }}</option>
+                {% endfor %}
+            </select><br>
+        </div>
+    </div> 
+    <label class="instruction">{{ _("All locations may take up to ~1h.") }}</label>
+    <button type="submit">{{ _("Run Clustering") }}</button>
+</form>
+<h3>{{ _("Results") }}</h3>
+<hr>
+<!-- hidden field to shadow show_large checkbox value -->
+<script lang="JavaScript">
+    function show_large(){
+        large_ch = document.getElementById("show_large_ch")
+        value = large_ch.checked ? "true" : "false"        
+        document.getElementById("show_large").value = value
+    }
+</script>
+<form name="results" 
+      hx-post='/view' 
+      hx-target='#view' 
+      hx-trigger="load, click"
+      hx-select-oob="#downloads"
+      hx-swap='innerHTML'>
+    <div id="results-filter">
+        <input type="hidden" id="ts" value="{{ ts }}">
+        {% if result_names %}
+            <select name="result_name" size=5>     
+                {% for name, locs in result_names %}
+                <option value="{{ name }}" {% if name == result_names[0][0] %}selected{% endif %} title="{{ locs }}" >{{ name }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <label class="instruction">{{ _("Click to visualize and get files.") }}</label>
+            <label class="label"><i>{{ _("viz may take a few minutes to load") }}</i></label>
+            <input type="hidden" id="show_large" name="show_large" value="{{ show_large }}">
+        {% else %}
+            <label class="instruction">{{ _("No results yet.") }}</label>
+            <input type="hidden" name="result_name" value="None">
+            <input type="hidden" id="show_large" name="show_large" value="None">
+        {% endif %}
+        
+    </div>
+</form>
+{% if result_names %}
+<label class="label">
+    <input id="show_large_ch" type="checkbox" onclick="show_large()" {% if show_large == "true" %}checked{% endif %}>
+    {{ _("Show large viz") }}
+</label>
+{% endif %}

@@ -1,0 +1,34 @@
+<hr>
+<table class="header">
+    <tr>
+        <td>
+            <label>{{ _("Country") }}: </label><label class="field">{{ country }}</label>
+            <label>&nbsp;&nbsp;|&nbsp;&nbsp;{{ _("Code") }}: </label><label class="field">{{ country_code }}</label><br>
+            <label>{{ _("Villages") }}: </label><label class="field">{{ village_file }}</label>
+            <label>(</label><label class="field">{{ village_name_col }}, {{ village_lon_col }}, {{ village_lat_col }})</label>            
+        </td>
+        <td id="new_config_btns" style="horiz-align: right" rowspan="3">
+            <button hx-target="#new_config_btns" hx-swap="innerHTML" hx-get="/new">{{ _("New Config") }}</button>
+        </td>
+    </tr>
+    {% if baseline_file %}
+    <tr>
+        <td colspan="2">
+            <label>{{ _("Baseline") }}: </label><label class="field">{{ baseline_file }}</label>
+            <label>(</label>
+                <label class="field">{{ baseline_lon_col }}, {{ baseline_lat_col }}
+                    {% for c in baseline_info_cols %}, {{ c }}{% endfor %}
+                </label>        
+            <label>)</label>
+        </td>
+    </tr>
+    {% endif %}
+    {% if local_path %}
+    <tr>
+        <td colspan="2">
+            <label>{{ _("Results") }}: </label><label class="field">{{ local_path }}</label>
+        </td>
+    </tr>
+    {% endif %}
+</table>
+<hr>

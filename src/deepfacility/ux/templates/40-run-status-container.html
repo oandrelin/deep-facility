@@ -1,0 +1,10 @@
+<button hx-get="/run/stop" hx-target="this" hx-swap="innerHTML">{{ _("Stop") }}</button> 
+<div id='container' 
+     hx-get='/run/status' 
+     hx-target='#status' 
+     hx-swap='innerHTML'
+     hx-trigger="load, every 5s">
+</div>
+<div id='status' style="overflow-y: auto">
+    <p>{{ _("Waiting for status...") }}</p>    
+</div>
